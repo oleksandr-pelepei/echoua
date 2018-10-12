@@ -1,1 +1,8 @@
-@import 'base/base';
+@import 'fonts';
+
+@import 'variables';
+
+@import '../node_modules/bootstrap/scss/bootstrap-reboot.scss';
+@import '../node_modules/bootstrap/scss/grid';
+
+@import 'custom';

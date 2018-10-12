@@ -79,9 +79,15 @@ gulp.task('minify-html', function() {
     };
 
   gulp.src('./*.html')
-    .pipe(minifyHTML(opts))
+    // .pipe(minifyHTML(opts))
     .pipe(gulp.dest('dist/'))
     .pipe(reload({stream:true}));
+});
+
+gulp.task('copy-fonts', function() {
+    gulp.src('./fonts/*')
+        .pipe(gulp.dest('dist/fonts/'))
+        .pipe(reload({stream:true}));
 });
 
 gulp.task('jshint', function() {
@@ -95,6 +101,7 @@ gulp.task('watch', function() {
   gulp.watch('js/*.js', ['jshint', 'js']);
   gulp.watch('./*.html', ['minify-html']);
   gulp.watch('img/*', ['imgmin']);
+  gulp.watch('fonts/*', ['copy-fonts']);
 });
 
 gulp.task('imgmin', function () {
@@ -107,4 +114,6 @@ gulp.task('imgmin', function () {
         .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('default', ['browser-sync', 'js', 'imgmin', 'minify-html', 'scss', 'watch']);
+gulp.task('default', ['browser-sync', 'js', 'imgmin', 'minify-html', 'scss', 'copy-fonts', 'watch']);
+
+gulp.task('build', [ 'js', 'imgmin', 'minify-html', 'scss', 'copy-fonts']);
